@@ -1,3 +1,4 @@
+MySQLdb
 sqlalchemy
 mysql
 psycopg2-binary
