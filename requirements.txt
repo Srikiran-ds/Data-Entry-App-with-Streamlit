@@ -1,1 +1,8 @@
-
+sqlalchemy
+mysql
+psycopg2-binary
+plotly
+XlsxWriter
+xlsxwriter
+mysqlclient==8.0.33
+SQLAlchemy==2.0.21
