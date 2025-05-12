@@ -1,8 +1,8 @@
 .streamlit/secrets.toml
-Phone Database.pbix
-telrich_logo12.png
-Phone Database.pbix
-*.log
-__pycache__/
-*.pyc
-config.json
+[connections.mysql]
+dialect = "mysql"
+host = "sql12.freesqldatabase.com"
+port = 3306
+database = "sql12778454"
+username = "sql12778454"
+password = "GCBkTZlzVQ"
