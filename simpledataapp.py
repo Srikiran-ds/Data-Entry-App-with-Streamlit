@@ -5,6 +5,7 @@ conn = st.connection('mysql', type='sql')
 
 # Perform query.
 df = conn.query('SELECT * from phone_sales;', ttl=600)
+st.dataframe(df.head())
 # Initialize database when app starts
 init_database()
 
@@ -48,10 +49,19 @@ with col1.expander(label='', expanded=True):
     if st.button('Save Details'):
        
         try:
-            df2 = conn.query(f"INSERT INTO phone_sales (phone_brand, phone_model, purchase_date, sold_date, sold_price, cost_price)
-            VALUES ('{phone_brand}', :'{phone_model}', '{purchase_date}', '{sold_date}', '{sold_price}', '{cost_price}');", ttl=600)
-            st.success("Data saved successfully!")
-            st.write(df2)
-        except Exception as e:
-            logger.error(f"Failed to save data: {e}")
-            st.error("Failed to save data. Please try again.")
+            
+            # Insert some data with conn.session.
+            with conn.session as s:
+                #s.execute('CREATE TABLE IF NOT EXISTS pet_owners (person TEXT, pet TEXT);')
+                #s.execute('DELETE FROM pet_owners;')
+                #pet_owners = {'jerry': 'fish', 'barbara': 'cat', 'alex': 'puppy'}
+                #for k in pet_owners:
+                s.execute(
+                        'INSERT INTO phone_sales (phone_brand, phone_model, purchase_date, sold_date, sold_price, cost_price) VALUES (:p_brand, :p_model, :p_date, :s_date, :s_price, :c_price);',
+                        params=dict(p_brand=phone_brand, p_model=phone_model, p_date=purchase_date, s_date=sold_date, s_price=sold_price, c_price=cost_price)
+                )
+                s.commit()
+
+# Query and display the data you inserted
+phone_sales = conn.query('select * from phone_sales')
+st.dataframe(phone_sales)
