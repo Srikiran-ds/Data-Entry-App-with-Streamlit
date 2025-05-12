@@ -1,2 +1,8 @@
+mysqldb
 mysqlclient
 SQLAlchemy
+sqlalchemy
+psycopg2-binary
+plotly
+XlsxWriter
+xlsxwriter
