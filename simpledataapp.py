@@ -61,6 +61,9 @@ with col1.expander(label='', expanded=True):
                         params=dict(p_brand=phone_brand, p_model=phone_model, p_date=purchase_date, s_date=sold_date, s_price=sold_price, c_price=cost_price)
                 )
                 s.commit()
+        except :
+            #logger.error(f"Failed to save data: {e}")
+            st.error("Failed to save data. Please try again.")      
 
 # Query and display the data you inserted
 phone_sales = conn.query('select * from phone_sales')
